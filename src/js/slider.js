@@ -61,8 +61,23 @@ END OF PART 2 - TEST AND DEBUG YOUR CODE
 
 class SliderPuzzle {
   constructor() {
-  }
+    this.$defaultImage = document.getElementById("defultImage");
+    this.$imageInput = document.getElementById("image");
+    this.$canvas = document.getElementById("imgCanvas");
 
+    if (this.$imageInput.files && this.$imageInput.files[0]){
+      //instantiate file reader
+      let reader = new FileReader();
+      reader.onload = () => {
+        this.image = new Image();
+        this.image.onload = () => {
+          this.createMeme();
+        };
+        this.image.src = reader.result;
+      };
+      reader.readAsDataURL(this.$imageInput.files[0]);
+    }
+  }
 }
 
 new SliderPuzzle();
