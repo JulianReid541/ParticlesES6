@@ -76,6 +76,10 @@ class SliderPuzzle {
     this.$context.drawImage(this.image, 0, 0);
 
     this.$imageInput.addEventListener('change', this.loadImage);
+    this.createPuzzle = thos.createPuzzle.bind(this);
+    this.loadImage = this.loadImage.bind(this);
+
+    inputNodes.forEach(element => element.addEventListener('change', this.createMeme));
 
     this.createCanvas()
     this.createPuzzle()
@@ -104,7 +108,7 @@ class SliderPuzzle {
       reader.onload = () => {
         this.image = new Image();
         this.image.onload = () => {
-          this.$context.drawImage(this.image, 0, 0);
+          this.createPuzzle();
         };
         this.image.src = reader.result;
       };
