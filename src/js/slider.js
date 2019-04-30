@@ -61,17 +61,50 @@ END OF PART 2 - TEST AND DEBUG YOUR CODE
 
 class SliderPuzzle {
   constructor() {
-    this.$defaultImage = document.getElementById("defultImage");
+    /* PART 1 - Create the default image on the page AND allow the user to upload an image
+  - Steal this code from the meme creator.  I simplified alot of the resizing code.  
+    You might want to do the same. */
     this.$imageInput = document.getElementById("image");
     this.$canvas = document.getElementById("imgCanvas");
+    this.$defaultImage = document.querySelector('#defaultImage');
+    this.image = this.$defaultImage;
+    this.$context = this.$canvas.getContext('2d');
+    this.deviceWidth = window.innerWidth;
 
+    this.$canvas.height = this.image.height;
+    this.$canvas.width = this.image.width;
+    this.$context.drawImage(this.image, 0, 0);
+
+    this.$imageInput.addEventListener('change', this.loadImage);
+
+    this.createCanvas()
+    this.createPuzzle()
+  }
+
+  createCanvas() {
+    //sets width and height
+    this.$canvas.width = Math.min(640, this.deviceWidth - 30);
+    this.$canvas.height = Math.min(480, this.deviceWidth - 30);
+  }
+  
+  createPuzzle(){
+    this.$context.clearRect(0, 0, this.$canvas.height, this.$canvas.width);
+
+    // draw the image
+    this.$canvas.height = this.image.height;
+    this.$canvas.width = this.image.width;
+    //this.resizeCanvas(this.$canvas.height, this.$canvas.width);
+    this.$context.drawImage(this.image, 0, 0);
+  }
+
+  loadImage(){
     if (this.$imageInput.files && this.$imageInput.files[0]){
       //instantiate file reader
       let reader = new FileReader();
       reader.onload = () => {
         this.image = new Image();
         this.image.onload = () => {
-          this.createMeme();
+          this.$context.drawImage(this.image, 0, 0);
         };
         this.image.src = reader.result;
       };
