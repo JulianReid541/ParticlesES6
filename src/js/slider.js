@@ -50,7 +50,7 @@ class Particles {
       var temp = particles[i];
       var factor = 1;
 
-      for (var j = 0; j < particlesNum; j++) {
+      for (var j = 0; j < paxiclesNum; j++) {
 
         var temp2 = particles[j];
         ctx.linewidth = 0.5;
