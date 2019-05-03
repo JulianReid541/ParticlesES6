@@ -193,6 +193,9 @@ window.requestAnimFrame = (function(){
 
 window.onload = () => new particles;
 
+//COMMENT
+//Couldn't finish. Will try more as the term progresses to get this working
+
 
 
 
