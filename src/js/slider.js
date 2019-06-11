@@ -2,14 +2,16 @@ import './general';
 
 class particles {
   constructor() {
-    let canvas = document.querySelector('canvas');
-    let ctx = canvas.getContext('2d');
-    let particles = [];
-    let particlesNum = 500;
-    let w = 500;
-    let h = 500;
-    let colors = ['#f35d4f','#f36849','#c0d988','#6ddaf1','#f1e85b'];
+    //variables
+    this.canvas = document.querySelector('canvas');
+    this.ctx = canvas.getContext('2d');
+    this.particles = [];
+    this.particlesNum = 500;
+    this.w = 500;
+    this.h = 500;
+    this.colors = ['#f35d4f','#f36849','#c0d988','#6ddaf1','#f1e85b'];
 
+    //set H/W of canvas
     canvas.width = 500;
     canvas.height = 500;
     canvas.style.left = (window.innerWidth - 500)/2+'px';
@@ -17,13 +19,20 @@ class particles {
     if(window.innerHeight>500)
       canvas.style.top = (window.innerHeight - 500)/2+'px';
 
-    this.factory = this.factory.bind(this, w, h), colors;
-    this.draw = this.draw.bind(this, w, h, particlesNum);
+
+    //binds
+    this.factory = this.factory.bind(this);
+    this.draw = this.draw.bind(this);
     this.findDistance = this.findDistance.bind(this);
     this.requestAnimFrame = this.requestAnimFrame.bind(this);
+    this.animate = this.animate.bind(this);
+    this.init = this.init.bind(this);
+
+    init();
   }
 
-  factory(){
+  Factory(){
+    //makes random integers within the canvas for the particles as well as colors
       this.x =  Math.round( Math.random() * this.w);
       this.y =  Math.round( Math.random() * this.h);
       this.rad = Math.round( Math.random() * 1) + 1;
@@ -33,6 +42,7 @@ class particles {
   }
 
   draw() {
+    //clears the canvas, and draws particles to the canvas
     this.ctx.clearRect(0, 0, w, h);
     this.ctx.globalCompositeOperation = 'lighter';
     for (let i = 0; i < this.particlesNum; i++) {
@@ -86,7 +96,29 @@ class particles {
       return Math.sqrt( Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2) );
   }
 
-  
+  requestAnimFrame() {
+    requestAnimationFrame(this.animate);
+  }
+
+  animate = () => {
+    return  window.requestAnimationFrame       ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame    ||
+            function( callback ){
+              window.setTimeout(callback, 1000 / 60);
+            };
+  }
+
+  loop(){
+    draw();
+    requestAnimFrame(loop);
+  }
+
+  init(){
+    for(var i = 0; i < this.particlesNum; i++){
+      this.particles.push(new Factory);
+    }
+  }
   
 } 
 
@@ -185,30 +217,29 @@ class particles {
 //   requestAnimFrame(loop);
 // })();
 
-window.requestAnimFrame = (function(){
-    return  window.requestAnimationFrame       ||
-            window.webkitRequestAnimationFrame ||
-            window.mozRequestAnimationFrame    ||
-            function( callback ){
-              window.setTimeout(callback, 1000 / 60);
-            };
-  })();
+// window.requestAnimFrame = (function(){
+//     return  window.requestAnimationFrame       ||
+//             window.webkitRequestAnimationFrame ||
+//             window.mozRequestAnimationFrame    ||
+//             function( callback ){
+//               window.setTimeout(callback, 1000 / 60);
+//             };
+//   })();
   
-  (function init(){
-    for(var i = 0; i < particlesNum; i++){
-      particles.push(new Factory);
-    }
-  })();
+  // (function init(){
+  //   for(var i = 0; i < particlesNum; i++){
+  //     particles.push(new Factory);
+  //   }
+  // })();
   
-  (function loop(){
-    draw();
-    requestAnimFrame(loop);
-  })();
+  // (function loop(){
+  //   draw();
+  //   requestAnimFrame(loop);
+  // })();
 
-window.onload = () => new particles;
 
-//COMMENT
-//Couldn't finish. Will try more as the term progresses to get this working
+
+window.onload = new particles;
 
 
 
