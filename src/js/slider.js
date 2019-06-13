@@ -4,7 +4,7 @@ class particles {
   constructor() {
     //variables
     this.canvas = document.querySelector('canvas');
-    this.ctx = canvas.getContext('2d');
+    this.ctx = this.canvas.getContext('2d');
     this.particles = [];
     this.particlesNum = 500;
     this.w = 500;
@@ -12,23 +12,23 @@ class particles {
     this.colors = ['#f35d4f','#f36849','#c0d988','#6ddaf1','#f1e85b'];
 
     //set H/W of canvas
-    canvas.width = 500;
-    canvas.height = 500;
-    canvas.style.left = (window.innerWidth - 500)/2+'px';
+    this.canvas.width = 500;
+    this.canvas.height = 500;
+    this.canvas.style.left = (window.innerWidth - 500)/2+'px';
 
     if(window.innerHeight>500)
       canvas.style.top = (window.innerHeight - 500)/2+'px';
 
 
     //binds
-    this.factory = this.factory.bind(this);
+    this.Factory = this.Factory.bind(this);
     this.draw = this.draw.bind(this);
     this.findDistance = this.findDistance.bind(this);
     this.requestAnimFrame = this.requestAnimFrame.bind(this);
     this.animate = this.animate.bind(this);
     this.init = this.init.bind(this);
 
-    init();
+    this.init();
   }
 
   Factory(){
@@ -97,16 +97,16 @@ class particles {
   }
 
   requestAnimFrame() {
-    requestAnimationFrame(this.animate);
+    requestAnimationFrame(window.setTimeout(callback, 1000 / 60), this.animate);
   }
 
-  animate = () => {
+  animate() {
     return  window.requestAnimationFrame       ||
             window.webkitRequestAnimationFrame ||
-            window.mozRequestAnimationFrame    ||
-            function( callback ){
-              window.setTimeout(callback, 1000 / 60);
-            };
+            window.mozRequestAnimationFrame   
+            // function( callback ){
+            //   window.setTimeout(callback, 1000 / 60);
+            // };
   }
 
   loop(){
@@ -116,7 +116,7 @@ class particles {
 
   init(){
     for(var i = 0; i < this.particlesNum; i++){
-      this.particles.push(new Factory);
+      this.particles.push(this.Factory());
     }
   }
   
