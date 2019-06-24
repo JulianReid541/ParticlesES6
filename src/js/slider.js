@@ -1,5 +1,17 @@
 import './general';
 
+class Factory {
+  constructor() {
+    //makes random integers within the canvas for the particles as well as colors
+      this.x =  Math.round( Math.random() * this.w);
+      this.y =  Math.round( Math.random() * this.h);
+      this.rad = Math.round( Math.random() * 1) + 1;
+      this.rgba = particles.colors[ Math.round( Math.random() * 3) ];
+      this.vx = Math.round( Math.random() * 3) - 1.5;
+      this.vy = Math.round( Math.random() * 3) - 1.5;
+    }
+  }
+
 class particles {
   constructor() {
     //variables
@@ -17,33 +29,42 @@ class particles {
     this.canvas.style.left = (window.innerWidth - 500)/2+'px';
 
     if(window.innerHeight>500)
-      canvas.style.top = (window.innerHeight - 500)/2+'px';
+      this.canvas.style.top = (window.innerHeight - 500)/2+'px';
 
 
     //binds
-    this.Factory = this.Factory.bind(this);
+    // this.Factory = this.Factory.bind(this);
     this.draw = this.draw.bind(this);
     this.findDistance = this.findDistance.bind(this);
-    this.requestAnimFrame = this.requestAnimFrame.bind(this);
-    this.animate = this.animate.bind(this);
+    // this.requestAnimFrame = this.requestAnimFrame.bind(this);
+    // this.animate = this.animate.bind(this);
     this.init = this.init.bind(this);
+
+    window.requestAnimFrame = (function(){
+          return  window.requestAnimationFrame       ||
+                  window.webkitRequestAnimationFrame ||
+                  window.mozRequestAnimationFrame    ||
+                  function( callback ){
+                    window.setTimeout(callback, 1000 / 60);
+                  };
+        })();
 
     this.init();
   }
 
-  Factory(){
-    //makes random integers within the canvas for the particles as well as colors
-      this.x =  Math.round( Math.random() * this.w);
-      this.y =  Math.round( Math.random() * this.h);
-      this.rad = Math.round( Math.random() * 1) + 1;
-      this.rgba = this.colors[ Math.round( Math.random() * 3) ];
-      this.vx = Math.round( Math.random() * 3) - 1.5;
-      this.vy = Math.round( Math.random() * 3) - 1.5;
-  }
+  // Factory(){
+  //   //makes random integers within the canvas for the particles as well as colors
+  //     this.x =  Math.round( Math.random() * this.w);
+  //     this.y =  Math.round( Math.random() * this.h);
+  //     this.rad = Math.round( Math.random() * 1) + 1;
+  //     this.rgba = this.colors[ Math.round( Math.random() * 3) ];
+  //     this.vx = Math.round( Math.random() * 3) - 1.5;
+  //     this.vy = Math.round( Math.random() * 3) - 1.5;
+  // }
 
   draw() {
     //clears the canvas, and draws particles to the canvas
-    this.ctx.clearRect(0, 0, w, h);
+    this.ctx.clearRect(0, 0, this.w, this.h);
     this.ctx.globalCompositeOperation = 'lighter';
     for (let i = 0; i < this.particlesNum; i++) {
       let temp = this.particles[i];
@@ -54,7 +75,7 @@ class particles {
         let temp2 = this.particles[j];
         this.ctx.linewidth = 0.5;
 
-        if (temp.rgba == temp2.rgba && findDistance(temp, temp2) < 50) {
+        if (temp.rgba == temp2.rgba && this.findDistance(temp, temp2) < 50) {
           this.ctx.strokeStyle = temp.rgba;
           this.ctx.beginPath();
           this.ctx.moveTo(temp.x, temp.y);
@@ -96,28 +117,30 @@ class particles {
       return Math.sqrt( Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2) );
   }
 
-  requestAnimFrame() {
-    requestAnimationFrame(window.setTimeout(callback, 1000 / 60), this.animate);
-  }
+  // requestAnimFrame() {
+  //   requestAnimationFrame(window.setTimeout(callback = () => (indow.setTimeout(callback, 1000 / 60))), this.animate);
+  // }
 
-  animate() {
-    return  window.requestAnimationFrame       ||
-            window.webkitRequestAnimationFrame ||
-            window.mozRequestAnimationFrame   
-            // function( callback ){
-            //   window.setTimeout(callback, 1000 / 60);
-            // };
-  }
+  // animate() {
+  //   return  window.requestAnimationFrame       ||
+  //           window.webkitRequestAnimationFrame ||
+  //           window.mozRequestAnimationFrame   
+  //           // function( callback ){
+  //           //   window.setTimeout(callback, 1000 / 60);
+  //           // };
+  // }
 
   loop(){
     draw();
-    requestAnimFrame(loop);
+    new particles();
   }
 
   init(){
     for(var i = 0; i < this.particlesNum; i++){
-      this.particles.push(this.Factory());
+      this.particles.push(new Factory);
     }
+    this.draw();
+    this.loop();
   }
   
 } 
@@ -239,7 +262,7 @@ class particles {
 
 
 
-window.onload = new particles;
+new particles();
 
 
 
