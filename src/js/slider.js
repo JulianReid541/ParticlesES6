@@ -26,15 +26,18 @@ class particles {
     for(let i = 0; i < this.particlesNum; i++) {
       this.particles.push(this.factory());
     }    
+    console.log(this.particles[1]);
+    console.log(this.particles[100]);
   }
 
   factory(){
-    const x =  Math.round( Math.random() * this.w);
-    const y =  Math.round( Math.random() * this.h);
-    const rad = Math.round( Math.random() * 1) + 1;
-    const rgba = this.colors[ Math.round( Math.random() * 3) ];
-    const vx = Math.round( Math.random() * 3) - 1.5;
-    const vy = Math.round( Math.random() * 3) - 1.5;
+    let x =  Math.round( Math.random() * this.w);
+    let y =  Math.round( Math.random() * this.h);
+    let rad = Math.round( Math.random() * 1) + 1;
+    let rgba = this.colors[ Math.round( Math.random() * 3) ];
+    let vx = Math.round( Math.random() * 3) - 1.5;
+    let vy = Math.round( Math.random() * 3) - 1.5;
+    return {x, y, rad, rgba, vx, vy};
   }
 }
 
@@ -142,18 +145,6 @@ class particles {
 //               window.setTimeout(callback, 1000 / 60);
 //             };
 //   })();
-  
-//   (function init(){
-//     for(var i = 0; i < particlesNum; i++){
-//       particles.push(new Factory);
-//     }
-//   })();
-  
-//   (function loop(){
-//     draw();
-//     requestAnimFrame(loop);
-//   })();
-
 
 
 new particles();
