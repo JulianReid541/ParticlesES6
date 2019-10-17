@@ -1,4 +1,5 @@
 import './general';
+import factory from './factory';
 
 class particles {
   constructor(){
@@ -11,11 +12,6 @@ class particles {
     this.w = window.innerWidth,
     //this.h = 1000,
     this.h = window.innerHeight,
-    this.colors = ['#f35d4f','#f36849',
-                   '#c0d988','#6ddaf1',
-                   '#f1e85b','#00FF00',
-                   '#ADD8E6','#00FFFF'];
-
     // this.canvas.width = 1000;
     this.canvas.width = window.innerWidth;
     // this.canvas.height = 1000;
@@ -26,7 +22,7 @@ class particles {
 
     //function binds
     this.init = this.init.bind(this);
-    this.factory = this.factory.bind(this);
+    //this.factory = this.factory.bind(this);
     this.draw = this.draw.bind(this);
     this.findDistance = this.findDistance.bind(this);
     this.loop = this.loop.bind(this);
@@ -37,27 +33,16 @@ class particles {
     this.loop();
   }
 
-  //sets up the array particles by pushing each index to new factory
+  //sets up the array particles by pushing each index to new factory class
   init(){
     for(let i = 0; i < this.particlesNum; i++) {
-      this.particles.push(this.factory());
+      this.particles.push(new factory());
     }    
     console.log(this.particles[1]);
     console.log(this.particles[399]);
   }
 
-  //assigns X,Y,RAD,RGBA,VX,VY and returns it in an array
-  // factory(){
-  //   let x =  Math.round( Math.random() * this.w);
-  //   let y =  Math.round( Math.random() * this.h);
-  //   let rad = Math.round( Math.random() * 1) + 1;
-  //   let rgba = this.colors[ Math.round( Math.random() * 3) ];
-  //   let vx = Math.round( Math.random() * 3) - 1.5;
-  //   let vy = Math.round( Math.random() * 3) - 1.5;
-  //   return {x, y, rad, rgba, vx, vy};
-  // }
-
-  //draws the particles to the canvas using the info returned from factory 
+  //draws the particles to the canvas using the info returned from factory class
   draw(){
   this.ctx.clearRect(0, 0, this.w, this.h);
   this.ctx.globalCompositeOperation = 'lighter';
