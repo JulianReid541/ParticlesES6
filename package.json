@@ -1,14 +1,14 @@
 {
-  "name": "sliderpuzzle",
-  "version": "1.0.0",
-  "description": "CS 233 JS - Slider Puzzle",
-  "main": "slider.js",
+  "name": "particlecanvas",
+  "version": "2.0.0",
+  "description": "A Canvas I made for fun",
+  "main": "particle.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "webpack": "webpack",
     "watch": "webpack-dev-server"
   },
-  "author": "Mari Good",
+  "author": "Julian Reid",
   "license": "ISC",
   "babel": {
     "presets": [
