@@ -1,3 +1,5 @@
+export default factory;
+
 class factory {
     constructor(){
 
