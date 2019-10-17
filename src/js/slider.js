@@ -47,15 +47,15 @@ class particles {
   }
 
   //assigns X,Y,RAD,RGBA,VX,VY and returns it in an array
-  factory(){
-    let x =  Math.round( Math.random() * this.w);
-    let y =  Math.round( Math.random() * this.h);
-    let rad = Math.round( Math.random() * 1) + 1;
-    let rgba = this.colors[ Math.round( Math.random() * 3) ];
-    let vx = Math.round( Math.random() * 3) - 1.5;
-    let vy = Math.round( Math.random() * 3) - 1.5;
-    return {x, y, rad, rgba, vx, vy};
-  }
+  // factory(){
+  //   let x =  Math.round( Math.random() * this.w);
+  //   let y =  Math.round( Math.random() * this.h);
+  //   let rad = Math.round( Math.random() * 1) + 1;
+  //   let rgba = this.colors[ Math.round( Math.random() * 3) ];
+  //   let vx = Math.round( Math.random() * 3) - 1.5;
+  //   let vy = Math.round( Math.random() * 3) - 1.5;
+  //   return {x, y, rad, rgba, vx, vy};
+  // }
 
   //draws the particles to the canvas using the info returned from factory 
   draw(){
