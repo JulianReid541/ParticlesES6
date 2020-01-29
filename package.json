@@ -1,27 +1,38 @@
 {
-  "name": "y",
+  "name": "sliderpuzzle",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "dependencies": {
-    "webpack": "^4.41.5"
-  },
-  "devDependencies": {
-    "webpack": "4.41.5",
-    "webpack-cli": "^3.3.10"
-  },
+  "description": "CS 233 JS - Slider Puzzle",
+  "main": "slider.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "webpack": "webpack"
+    "webpack": "webpack",
+    "watch": "webpack-dev-server"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/JulianReid541/ParticlesES6.git"
-  },
-  "author": "",
+  "author": "Mari Good",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/JulianReid541/ParticlesES6/issues"
+  "babel": {
+    "presets": [
+      "@babel/env"
+    ]
   },
-  "homepage": "https://github.com/JulianReid541/ParticlesES6#readme"
+  "devDependencies": {
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.5",
+    "css-loader": "^2.1.1",
+    "file-loader": "^3.0.1",
+    "img-loader": "^3.0.1",
+    "less": "^3.9.0",
+    "less-loader": "^4.1.0",
+    "style-loader": "^0.23.1",
+    "url-loader": "^1.1.2",
+    "webpack": "^4.30.0",
+    "webpack-cli": "^3.3.0",
+    "webpack-dev-server": "^3.3.1"
+  },
+  "dependencies": {
+    "bootstrap": "^3.4.1",
+    "jquery": "^3.4.0"
+  }
 }
